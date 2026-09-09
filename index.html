@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="id">
+ <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260907-05-0068bad","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/9e99ecf74af2a081.telemetry_sdk.js" integrity="sha512-tZ7fmfTx2KpCLjXQnEuL9azQ4A5+7+xumsx6r/WYVD0zCP/8LP8hDeCypMQesmP+WyAew4g7l5Ah23Bjd6yoVg=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petualangan Bilangan Bulat</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root{--ink:#24345d;--violet:#7657e8;--pink:#ef5fa6;--orange:#ff9b45;--mint:#55ddbe;--yellow:#ffd64d;--blue:#39bff5}
+    *{box-sizing:border-box} html,body{width:100%;height:100%;margin:0;overflow:hidden}
+    body{font-family:"DM Sans",sans-serif;color:var(--ink);background:linear-gradient(135deg,#a9edff,#d7f9ff 52%,#faeaff)}
+    button,input,textarea{font:inherit} button{cursor:pointer} button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+    .game-shell{width:100%;height:calc(100 * min(var(--vh,1vh),1vh));min-height:520px;position:relative;overflow:hidden;background:linear-gradient(135deg,#a9edff,#d7f9ff 52%,#faeaff)}
+    .game-shell:before,.game-shell:after{content:"";position:absolute;border-radius:999px;opacity:.45;pointer-events:none}.game-shell:before{width:32vw;height:32vw;right:-8vw;top:-13vw;background:#78d8ff}.game-shell:after{width:28vw;height:28vw;left:-11vw;bottom:-15vw;background:#f2abd3}
+    .screen{display:none;position:absolute;inset:0;z-index:1;padding:clamp(10px,2vw,28px);overflow:hidden}.screen.active{display:flex;animation:screenIn .3s ease both}@keyframes screenIn{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+    .stars:before,.stars:after{content:"✦ · ✧ · ✦ · ✧ · ✦";position:absolute;color:#fff;font-size:18px;letter-spacing:12px;opacity:.7;pointer-events:none}.stars:before{top:4%;left:2%}.stars:after{bottom:4%;right:2%;transform:rotate(4deg)}
+    .panel{background:rgba(255,255,255,.91);border:3px solid rgba(255,255,255,.96);border-radius:27px;box-shadow:0 11px 0 rgba(83,94,171,.14),0 20px 35px rgba(74,90,159,.16)}
+    .game-title{font-weight:900;letter-spacing:-.06em;line-height:.96;text-shadow:0 4px 0 rgba(255,255,255,.74)}
+    .button-game{border:0;border-radius:15px;box-shadow:0 6px 0 rgba(47,54,117,.22);font-weight:900;transition:transform .15s,box-shadow .15s,filter .15s}.button-game:hover{transform:translateY(-3px);filter:saturate(1.15)}.button-game:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(47,54,117,.22)}
+    .nav-button{padding:8px 12px;background:#fff;color:#465888;font-size:12px}.hud-chip{padding:6px 9px;border:2px solid #fff;border-radius:13px;background:rgba(255,255,255,.93);box-shadow:0 4px 0 rgba(50,63,120,.12);font-size:11px;font-weight:900;white-space:nowrap}
+    .menu-tile{min-height:88px;padding:11px;border:0;border-radius:19px;color:#fff;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 7px 0 rgba(50,63,120,.18);font-size:clamp(14px,1.35vw,18px);font-weight:900;line-height:1.15;transition:transform .18s,filter .18s}.menu-tile > span:first-child{font-size:clamp(28px,3vw,38px);line-height:1}.menu-tile:hover{transform:translateY(-4px) rotate(-1deg);filter:brightness(1.08)}
+    .map-field{position:relative;flex:1;min-height:0;overflow:hidden;border:4px solid #fff;border-radius:27px;background:linear-gradient(135deg,#6970ed,#74c9ff 58%,#9df2d5);box-shadow:0 10px 0 rgba(59,70,146,.18)}.route{position:absolute;inset:10% 9%;width:82%;height:78%}.route path{fill:none;stroke:#fff;stroke-width:9;stroke-linecap:round;stroke-dasharray:5 18;opacity:.86}
+    .level-node{position:absolute;width:112px;height:58px;border:0;border-radius:18px;background:#fff;color:#425288;box-shadow:0 6px 0 rgba(45,60,120,.22);font-size:11px;font-weight:900;transition:transform .2s}.level-node:not(:disabled):hover{transform:scale(1.08)}.level-node.locked{background:#dce7fb;color:#7684ad}.level-node.boss{color:#fff;background:linear-gradient(135deg,#ff7c6a,#ef4b98)}.node1{left:8%;top:65%}.node2{left:27%;top:33%}.node3{left:43%;top:66%}.node4{left:58%;top:25%}.node5{left:74%;top:56%}.node6{left:84%;top:20%}
+    #rocket-map{position:absolute;z-index:3;left:11%;top:73%;font-size:38px;filter:drop-shadow(0 5px 0 rgba(40,56,133,.24));transition:all .85s cubic-bezier(.2,.9,.3,1)}
+    .question-card{width:min(850px,96%);margin:auto;padding:clamp(14px,2vw,28px);text-align:center}.question-text{max-width:730px;margin:8px auto 14px;font-size:clamp(20px,3vw,39px);font-weight:900;line-height:1.12}.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:680px;margin:auto}.answer-btn{min-height:52px;border:3px solid #fff;border-radius:16px;background:#eef5ff;color:#354a84;box-shadow:0 5px 0 rgba(53,74,132,.15);font-size:clamp(14px,1.7vw,20px);font-weight:900;transition:transform .16s,background .16s}.answer-btn:hover{transform:translateY(-3px);background:#fff7cb}.answer-btn:disabled{cursor:default;opacity:.76}.answer-btn.good{background:#bff5e5;animation:answerPop .35s ease}.answer-btn.bad{background:#ffd4df}@keyframes answerPop{50%{transform:scale(1.06)}}
+    .timer-track{height:13px;overflow:hidden;border-radius:30px;background:#e5eafb}.timer-fill{width:100%;height:100%;border-radius:30px;background:linear-gradient(90deg,#55ddbe,#ffd64d,#ff735e);transition:width .3s linear}.timer-fill.urgent{animation:pulse .5s infinite}@keyframes pulse{50%{filter:brightness(1.2);transform:scaleY(1.25)}}
+    .feedback{min-height:26px;font-size:16px;font-weight:900}.correct{color:#13a982}.wrong{color:#e94d78}.shake{animation:shake .42s ease}@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}100%{transform:translateX(0)}}.heart-hit{display:inline-block;animation:heartHit .5s ease}@keyframes heartHit{50%{transform:scale(1.35) rotate(-14deg);filter:saturate(2)}}
+    .particle-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:20}.particle{position:absolute;left:50%;top:50%;font-size:18px;animation:burst .75s ease-out forwards}@keyframes burst{to{transform:translate(var(--x),var(--y)) rotate(180deg);opacity:0}}
+    .combo-pop{animation:comboPop .55s ease}@keyframes comboPop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+    .training-zone{max-width:900px;margin:auto;max-height:calc(100% - 12px);overflow:hidden}.training-zone .number-zone{margin-top:6px;padding:6px 10px}.training-zone > p[data-template-id="training-intro"]{margin-top:8px;font-size:13px;line-height:1.2}.training-zone > div.rounded-2xl{margin-top:6px;padding:8px 10px;font-size:11px;line-height:1.2}.training-zone > p[data-template-id="training-direction"]{margin-top:5px;font-size:11px;line-height:1.15}.training-zone > .text-center{margin-top:6px}.training-zone > .text-center .button-game{padding:8px 16px;font-size:12px}.line-scene{position:relative;height:64px;margin:0}.number-track{position:absolute;top:29px;left:3%;right:3%;height:4px;border-radius:8px;background:linear-gradient(90deg,#7657e8,#39bff5 52%,#55ddbe)}.number-tick{position:absolute;top:23px;width:1px;height:13px;background:#526697;transform:translateX(-50%)}.number-label{position:absolute;top:40px;color:#425580;font-size:7px;font-weight:900;transform:translateX(-50%)}.rocket-marker{position:absolute;z-index:4;top:3px;font-size:22px;transform:translateX(-50%);transition:left .14s cubic-bezier(.2,.9,.3,1);filter:drop-shadow(0 3px 0 rgba(42,58,136,.2))}.rocket-marker:after{content:"";position:absolute;top:26px;left:50%;width:1px;height:9px;background:#ef5fa6;transform:translateX(-50%)}.range-input{display:block;width:94%;height:8px;margin:0 3%;appearance:none;border-radius:999px;background:linear-gradient(90deg,#7657e8,#39bff5,#55ddbe)}.range-input::-webkit-slider-thumb{width:15px;height:15px;appearance:none;border:2px solid #fff;border-radius:50%;background:#ef5fa6}.range-input::-moz-range-thumb{width:14px;height:14px;border:2px solid #fff;border-radius:50%;background:#ef5fa6}
+    .overlay{display:none;position:absolute;inset:0;z-index:40;align-items:center;justify-content:center;padding:18px;background:rgba(61,73,145,.48);backdrop-filter:blur(6px)}.overlay.show{display:flex}.overlay-box{width:min(570px,100%);padding:26px;text-align:center;animation:pop .35s ease both}@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}.badge-glow{animation:glow 1s ease-in-out infinite alternate}@keyframes glow{to{filter:drop-shadow(0 0 18px #ffd64d);transform:scale(1.08)}}
+    .info-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}.info-list li{padding:8px 10px;border-radius:12px;background:#f5f8ff;font-size:clamp(11px,1.15vw,14px);font-weight:700}.board-row{display:flex;justify-content:space-between;padding:8px 11px;border-radius:12px;background:#f4f7ff;font-weight:900;font-size:13px}.tab-btn{padding:9px 14px;border:0;border-radius:13px;background:#e8edff;color:#52618e;font-size:12px;font-weight:900}.tab-btn.active{background:#7657e8;color:#fff}.badge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.badge-card{min-height:130px;padding:12px;border-radius:18px;text-align:center;background:#f2f5ff;border:2px solid #dce5ff}.badge-card.unlocked{background:linear-gradient(135deg,#fff7cc,#fff0f8);border-color:#ffd64d;box-shadow:0 5px 0 rgba(238,184,55,.18)}.badge-icon{font-size:35px}.badge-name{font-size:11px;font-weight:900;margin-top:5px}.badge-card p{font-size:10px;font-weight:700;color:#627199;margin:4px 0 0}
+    .boss-enter{animation:bossIn .65s ease both}@keyframes bossIn{from{transform:translateY(-30px) scale(.7);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+    @media(max-width:700px){.game-shell{min-height:470px}.screen{padding:9px}.menu-tile{min-height:66px;padding:7px;font-size:clamp(12px,3.2vw,15px);gap:3px}.menu-tile > span:first-child{font-size:clamp(24px,7vw,32px)}.hud-chip{padding:5px 6px;font-size:9px}.level-node{transform:scale(.72);transform-origin:center}.node1{left:2%}.node6{left:78%}.answer-btn{min-height:43px}.question-text{font-size:clamp(18px,5vw,29px)}.info-list{grid-template-columns:1fr;gap:5px}.badge-grid{grid-template-columns:repeat(2,1fr)}.badge-card{min-height:88px;padding:7px}.badge-icon{font-size:26px}.badge-card p{display:none}.training-zone{padding:14px 12px!important}.training-zone .number-zone{padding:4px 6px}.training-zone > div.rounded-2xl{font-size:10px}.training-zone > p[data-template-id="training-direction"]{font-size:10px}.training-zone > .text-center .button-game{padding:7px 12px;font-size:11px}.line-scene{height:54px}.number-track{top:25px}.number-tick{top:20px;height:11px}.number-label{top:34px;font-size:6px}.rocket-marker{top:2px;font-size:19px}.rocket-marker:after{top:23px;height:7px}}
+  </style>
+  <script src="/_sdk/fbe2ebfd64647c54.data_sdk.js" type="text/javascript" integrity="sha512-vkTX6CfvpHc3WbjK+tFJCaDuw4ERA4aEV/e5/7+MMJPMTF4RJYCI6CAwJBT/gtDW+dba4uLSsPUgDjVDHWtgUQ=="></script>
+  <script src="/_sdk/fcb6dc01f91829ac.resizing_sdk.js" type="text/javascript" integrity="sha512-YK8JfnN705qaEaVhiL7pcVB2Rs/BbdX5yxV55Az8zT/1JanyEWTw9HqCF915m9iV1YEaoil8qsjJz03l1Kb0Ug=="></script>
+ </head>
+ <body data-template-id="__page-root">
+  <div id="app" class="game-shell">
+   <div id="particles" class="particle-layer"></div>
+   <section id="start" class="screen active items-center justify-center stars" aria-label="Layar mulai">
+    <div class="panel w-full max-w-2xl p-7 md:p-10 text-center relative z-10">
+     <div class="text-5xl mb-3" aria-hidden="true">
+      🚀 ✨ 🔢
+     </div>
+     <p data-template-id="start-welcome" class="canva-text font-black tracking-widest text-[#7657e8]"></p>
+     <h1 data-template-id="start-title" class="canva-text game-title mt-3 text-[#334d9c]"></h1>
+     <p data-template-id="start-tagline" class="canva-text font-bold mt-5 text-[#536899]"></p>
+     <form id="start-form" class="mt-7 max-w-md mx-auto"><label data-template-id="name-label" class="canva-text block text-left font-black mb-2" for="player-name"></label> <input id="player-name" data-template-id="name-input" class="canva-input w-full rounded-2xl border-[3px] border-[#cbd8f7] p-4 font-bold text-[#334d9c]" maxlength="20" required>
+      <p id="name-error" class="text-pink-600 font-bold text-sm h-5 mt-2" aria-live="polite"></p><button data-template-id="start-button" class="canva-button button-game w-full mt-2 py-4 text-lg bg-[#7657e8] text-white" type="submit"></button>
+     </form><button id="sound-toggle-start" class="button-game nav-button mt-5" type="button">🔊 SOUND ON</button>
+    </div>
+   </section>
+   <section id="home" class="screen flex-col stars" aria-label="Menu utama">
+    <header class="flex items-center justify-between gap-3 relative z-10">
+     <div>
+      <p data-template-id="home-kicker" class="canva-text font-black tracking-[.2em] text-[#7657e8]"></p>
+      <h1 data-template-id="home-title" class="canva-text game-title text-[#334d9c]"></h1>
+     </div>
+     <div class="flex gap-2">
+      <button id="sound-toggle-home" class="button-game nav-button" type="button">🔊 SOUND ON</button><button data-template-id="exit-button" id="exit-app" class="canva-button button-game nav-button" type="button"></button>
+     </div>
+    </header>
+    <main class="flex flex-col flex-1 min-h-0 relative z-10">
+     <div class="flex flex-wrap gap-2 my-3">
+      <div class="hud-chip">
+       👤 <span id="home-name">Explorer</span>
+      </div>
+      <div class="hud-chip">
+       🏆 <span id="home-score">0</span> GAME
+      </div>
+      <div class="hud-chip">
+       📝 <span id="home-quiz">0</span> KUIS
+      </div>
+      <div class="hud-chip">
+       ⭐ <span id="home-progress">0</span>/6
+      </div>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 flex-1 min-h-0"><button class="menu-tile bg-[#6c70e8]" data-go="guide" type="button"><span class="text-2xl">📖</span><br><span data-template-id="menu-guide" class="canva-text"></span></button> <button class="menu-tile bg-[#ef5fa6]" data-go="goals" type="button"><span class="text-2xl">🎯</span><br><span data-template-id="menu-goals" class="canva-text"></span></button> <button class="menu-tile bg-[#39bff5]" data-go="training" type="button"><span class="text-2xl">🚀</span><br><span data-template-id="menu-training" class="canva-text"></span></button> <button class="menu-tile bg-[#ff9b45]" data-go="map" type="button"><span class="text-2xl">🗺️</span><br><span data-template-id="menu-map" class="canva-text">GAMES</span></button> <button class="menu-tile bg-[#55cdb0]" data-go="quiz" type="button"><span class="text-2xl">📝</span><br><span data-template-id="menu-quiz" class="canva-text"></span></button> <button class="menu-tile bg-[#9a70ed]" data-go="reflection" type="button"><span class="text-2xl">💭</span><br><span data-template-id="menu-reflection" class="canva-text"></span></button> <button class="menu-tile bg-[#ffb53d]" data-go="leaderboard" type="button"><span class="text-2xl">🏆</span><br><span data-template-id="menu-leaderboard" class="canva-text"></span></button> <button class="menu-tile bg-[#4e9feb]" data-go="developer" type="button"><span class="text-2xl">👩‍💻</span><br><span data-template-id="menu-developer" class="canva-text"></span></button>
+     </div>
+    </main>
+   </section>
+   <section id="guide" class="screen items-center justify-center stars">
+    <div class="panel w-full max-w-5xl p-6 md:p-8 relative z-10">
+     <div class="flex justify-between items-center gap-3">
+      <h2 data-template-id="guide-title" class="canva-text game-title text-[#334d9c]"></h2><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
+     </div>
+     <ol class="info-list list-decimal list-inside mt-5">
+      <li>Games memiliki 6 level permainan dengan empat hati.</li>
+      <li>Level 1–5 berdurasi 10 detik per soal.</li>
+      <li>Final Boss berdurasi 7 detik per soal.</li>
+      <li>Jawaban salah mengurangi satu hati.</li>
+      <li>Jawab benar beruntun mendapatkan bonus combo.</li>
+      <li>Game Over harus diulangi dari level 1.</li>
+      <li>Soal dan pilihan jawaban selalu diacak.</li>
+      <li>Buka achievement rahasia dengan performa terbaik.</li>
+     </ol>
+    </div>
+   </section>
+   <section id="goals" class="screen items-center justify-center stars">
+    <div class="panel w-full max-w-5xl p-6 md:p-8 relative z-10">
+     <div class="flex justify-between items-center gap-3">
+      <h2 data-template-id="goals-title" class="canva-text game-title text-[#334d9c]"></h2><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
+     </div>
+     <ol class="info-list list-decimal list-inside mt-5">
+      <li>Mengenali bilangan positif, negatif, dan nol.</li>
+      <li>Menentukan posisi bilangan pada garis bilangan.</li>
+      <li>Mengurutkan bilangan bulat.</li>
+      <li>Membandingkan bilangan bulat.</li>
+      <li>Menyelesaikan penjumlahan bilangan bulat.</li>
+      <li>Menyelesaikan pengurangan bilangan bulat.</li>
+      <li>Menerapkan bilangan bulat dalam kehidupansehari-hari.</li>
+     </ol>
+    </div>
+   </section>
+   <section id="training" class="screen items-center justify-center stars">
+    <div class="panel training-zone w-full p-6 md:p-8 relative z-10">
+     <div class="flex justify-between items-center gap-3">
+      <h2 data-template-id="training-title" class="canva-text game-title text-[#334d9c]"></h2><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
+     </div>
+     <p data-template-id="training-intro" class="canva-text font-bold mt-4 text-[#536899]"></p>
+     <div class="mt-3 rounded-2xl bg-[#f5f8ff] p-3 text-left text-[#536899] font-bold text-xs md:text-sm leading-snug">
+      Bilangan bulat negatif dimulai dari -1, -2, -3, dst. 
+      Bilangan nol adalah 0. 
+      Bilangan bulat positif dimulai dari 1, 2, 3, dst. 
+      Pada bilangan bulat semakin ke kanan nilainya semakin besar, semakin ke kiri nilainya semakin kecil. Perhatikan garis bilangan di bawah ini!
+     </div>
+     <p data-template-id="training-direction" class="canva-text font-bold text-[#7657e8] mt-2"></p>
+     <div class="number-zone">
+      <div id="training-line" class="line-scene" aria-label="Garis bilangan interaktif dari negatif sepuluh hingga positif sepuluh">
+       <div class="number-track"></div>
+       <div id="rocket-training" class="rocket-marker" aria-hidden="true">
+        🚀
+       </div>
+      </div><label class="sr-only" for="number-slider">Pilih posisi roket pada garis bilangan</label><input id="number-slider" class="range-input" type="range" min="-10" max="10" value="0" step="1">
+      <div class="text-center mt-3">
+       <span data-template-id="position-label" class="canva-text font-black text-[#536899]"></span> <output id="position-value" class="text-2xl font-black text-[#ef5fa6]" for="number-slider">0</output>
+      </div>
+     </div>
+     <div class="text-center mt-3">
+      <button data-template-id="training-map-button" class="canva-button button-game bg-[#ff9b45] text-white px-6 py-3" data-go="map" type="button"></button>
+     </div>
+    </div>
+   </section>
+   <section id="map" class="screen flex-col stars" aria-label="Peta level">
+    <header class="flex justify-between items-center relative z-10 gap-3">
+     <div>
+      <p data-template-id="map-kicker" class="canva-text font-black text-[#7657e8]"></p>
+      <h2 data-template-id="map-title" class="canva-text game-title text-[#334d9c]"></h2>
+     </div><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
+    </header>
+    <main class="map-field mt-3 relative z-10">
+     <div class="absolute top-5 left-6 text-4xl" aria-hidden="true">
+      🪐
+     </div>
+     <div class="absolute bottom-4 right-7 text-4xl" aria-hidden="true">
+      💎
+     </div>
+     <svg class="route" viewbox="0 0 1000 600" preserveaspectratio="none" aria-hidden="true">
+      <path d="M40 470 C170 470,145 170,260 210 S360 530,430 470 S530 100,600 150 S700 450,760 400 S850 70,915 120"></path>
+     </svg>
+     <div id="rocket-map" aria-hidden="true">
+      🚀
+     </div><button class="level-node node1" data-level="1" type="button">● LEVEL 01<br><small>TERBUKA</small></button><button class="level-node node2 locked" data-level="2" type="button" disabled>● LEVEL 02<br><small>TERKUNCI</small></button><button class="level-node node3 locked" data-level="3" type="button" disabled>● LEVEL 03<br><small>TERKUNCI</small></button><button class="level-node node4 locked" data-level="4" type="button" disabled>● LEVEL 04<br><small>TERKUNCI</small></button><button class="level-node node5 locked" data-level="5" type="button" disabled>● LEVEL 05<br><small>TERKUNCI</small></button><button id="boss-node" class="level-node boss node6 locked" data-level="6" type="button" disabled>👑 FINAL BOSS<br><small>TERKUNCI</small></button>
+    </main>
+   </section>
+   <section id="play" class="screen flex-col stars" aria-label="Permainan">
+    <header class="flex items-center justify-between gap-2 relative z-10">
+     <div>
+      <p id="level-kicker" class="font-black text-[#7657e8] text-sm">LEVEL 01</p>
+      <h2 id="level-name" class="game-title text-[#334d9c]">MISI ANGKA</h2>
+     </div><button id="exit-level" class="button-game nav-button" type="button">🗺️ PETA</button>
+    </header>
+    <div id="game-area" class="flex flex-col flex-1 min-h-0">
+     <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mt-2 relative z-10">
+      <div class="hud-chip">
+       🏆 <span id="play-score">0</span>
+      </div>
+      <div class="hud-chip">
+       ❤️ <span id="heart-display">❤️ ❤️ ❤️</span>
+      </div>
+      <div class="hud-chip">
+       🔥 <span id="combo-display">x0</span>
+      </div>
+      <div class="hud-chip">
+       📝 <span id="question-count">1 / 4</span>
+      </div>
+      <div class="hud-chip">
+       ⏱ <span id="time-value">10</span>
+      </div>
+      <div class="hud-chip">
+       ⭐ +<span id="bonus-display">0</span>
+      </div>
+     </div>
+     <div class="timer-track mt-2 relative z-10">
+      <div id="timer-fill" class="timer-fill"></div>
+     </div>
+     <main id="question-card" class="question-card panel flex-1 min-h-0 flex flex-col justify-center relative z-10">
+      <div id="boss-mark" class="hidden text-4xl boss-enter" aria-hidden="true">
+       👑
+      </div>
+      <p id="question-type" class="font-black tracking-[.15em] text-sm text-[#ef5fa6]">PILIH JAWABAN</p>
+      <div id="question-text" class="question-text"></div>
+      <div id="answer-area"></div>
+      <div id="feedback" class="feedback mt-3" aria-live="polite"></div>
+     </main>
+    </div>
+   </section>
+   <section id="quiz" class="screen flex-col items-center justify-center stars">
+    <div class="panel w-full max-w-4xl p-6 md:p-8 relative z-10">
+     <div class="flex justify-between items-center gap-3">
+      <div>
+       <p data-template-id="quiz-kicker" class="canva-text font-black text-[#ef5fa6]"></p>
+       <h2 data-template-id="quiz-title" class="canva-text game-title text-[#334d9c]"></h2>
+      </div><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
+     </div>
+     <div id="quiz-locked" class="text-center p-8 font-black text-[#536899]">
+      🔒 Selesaikan semua level untuk membuka Kuis Akhir.
+     </div>
+     <div id="quiz-play" class="hidden text-center">
+      <div class="flex justify-between font-black mt-4">
+       <span id="quiz-number">SOAL 1 / 3</span><span>QUIZ: <span id="quiz-score-live">0</span>/100</span>
+      </div>
+      <div id="quiz-question" class="question-text"></div>
+      <div id="quiz-answers" class="answer-grid"></div>
+     </div>
+     <div id="quiz-result" class="hidden text-center py-5">
+      <div class="text-5xl">
+       🏆
+      </div>
+      <h3 data-template-id="quiz-result-title" class="canva-text game-title text-[#334d9c] mt-2"></h3>
+      <p class="font-black mt-3">QUIZ SCORE: <span id="quiz-final-score">0</span> / 100</p><button class="button-game bg-[#ff9b45] text-white px-6 py-3 mt-5 back-home" type="button">⌂ KEMBALI KE HOME</button>
+     </div>
+    </div>
+   </section>
+   <section id="leaderboard" class="screen items-center justify-center stars">
+    <div class="panel w-full max-w-5xl p-6 md:p-8 relative z-10">
+     <div class="flex justify-between items-center gap-3">
+      <h2 data-template-id="leaderboard-title" class="canva-text game-title text-[#334d9c]"></h2><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
+     </div>
+     <div class="flex gap-2 mt-5">
+      <button id="scores-tab" class="tab-btn active" type="button">🏆 TOP SCORE</button><button id="badges-tab" class="tab-btn" type="button">🎖️ ACHIEVEMENT</button>
+     </div>
+     <div id="scores-panel" class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+      <div>
+       <h3 data-template-id="leader-game-title" class="canva-text font-black text-[#7657e8]"></h3>
+       <ol id="game-board" class="mt-2 space-y-2"></ol>
+      </div>
+      <div>
+       <h3 data-template-id="leader-quiz-title" class="canva-text font-black text-[#ef5fa6]"></h3>
+       <ol id="quiz-board" class="mt-2 space-y-2"></ol>
+      </div>
+     </div>
+     <div id="badges-panel" class="hidden mt-4">
+      <div class="badge-grid">
+       <article id="badge-kilat" class="badge-card">
+        <div class="badge-icon">
+         🔒
+        </div>
+        <div class="badge-name">
+         ???
+        </div>
+        <p>RAHASIA</p>
+       </article>
+       <article id="badge-sempurna" class="badge-card">
+        <div class="badge-icon">
+         🔒
+        </div>
+        <div class="badge-name">
+         ???
+        </div>
+        <p>RAHASIA</p>
+       </article>
+       <article id="badge-pantang" class="badge-card">
+        <div class="badge-icon">
+         🔒
+        </div>
+        <div class="badge-name">
+         ???
+        </div>
+        <p>RAHASIA</p>
+       </article>
+       <article id="badge-explorer" class="badge-card">
+        <div class="badge-icon">
+         🔒
+        </div>
+        <div class="badge-name">
+         ???
+        </div>
+        <p>RAHASIA</p>
+       </article>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="reflection" class="screen items-center justify-center stars">
+    <form id="reflection-form" class="panel w-full max-w-4xl p-6 md:p-7 relative z-10">
+     <div class="flex justify-between items-center gap-3">
+      <h2 data-template-id="reflection-title" class="canva-text game-title text-[#334d9c]"></h2><button type="button" class="button-game nav-button back-home">⌂ HOME</button>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div>
+       <label data-template-id="learn-label" class="canva-text block font-black mb-1" for="reflection-learning"></label><textarea id="reflection-learning" class="w-full h-24 rounded-xl border-2 border-[#cbd8f7] p-3 resize-none"></textarea>
+      </div>
+      <div>
+       <label data-template-id="difficulty-label" class="canva-text block font-black mb-1" for="reflection-difficulty"></label><textarea id="reflection-difficulty" class="w-full h-24 rounded-xl border-2 border-[#cbd8f7] p-3 resize-none"></textarea>
+      </div>
+     </div><button data-template-id="reflection-save" class="canva-button button-game bg-[#55cdb0] text-white px-6 py-3 mt-4" type="submit"></button><span id="reflection-status" class="font-black ml-3 text-[#13a982]" aria-live="polite"></span>
+    </form>
+   </section>
+   <section id="developer" class="screen items-center justify-center stars">
+    <div class="panel w-full max-w-3xl p-8 text-center relative z-10">
+     <div class="text-6xl">
+      👩‍💻✨
+     </div>
+     <h2 data-template-id="developer-title" class="canva-text game-title text-[#334d9c] mt-3"></h2>
+     <h3 data-template-id="developer-game" class="canva-text font-black text-[#7657e8] mt-4"></h3>
+     <p data-template-id="developer-description" class="canva-text font-bold text-[#536899] mt-3"></p>
+     <p data-template-id="developer-name" class="canva-text font-black text-[#ef5fa6] mt-6"></p><button class="button-game nav-button mt-6 back-home" type="button">⌂ HOME</button>
+    </div>
+   </section>
+   <div id="overlay" class="overlay" aria-live="assertive">
+    <div class="overlay-box panel">
+     <div id="overlay-icon" class="text-6xl"></div>
+     <h2 id="overlay-title" class="game-title text-[#334d9c] mt-2"></h2>
+     <p id="overlay-message" class="font-bold text-[#536899] mt-3"></p>
+     <div id="overlay-stats" class="font-black text-[#7657e8] mt-4 whitespace-pre-line"></div>
+     <div id="overlay-actions" class="flex justify-center gap-3 flex-wrap mt-6"></div>
+    </div>
+   </div>
+  </div>
+  <script src="/_sdk/92570d8e491862b9.editing_sdk.js" integrity="sha512-FgTgBgZOGUl1XBrojWdmYvV2Ka+jYLWeeIrMhp1Q1xMV3FJfF+VJFjO6hw+EDGnXYa+zMZXNIP5UYLxGsdfP6g=="></script>
+  <script>
+    // Fallback teks lokal agar tetap tampil saat dijalankan di luar Canva.
+    (() => {
+      const fallbackText = {"start-welcome":"SELAMAT DATANG, MATH EXPLORER!","start-title":"PETUALANGAN BILANGAN BULAT","start-tagline":"Taklukkan Angka, Raih Skor, Jadilah Math Explorer!","name-label":"NAMA PEMAIN","name-input":"Ketik nama kamu...","start-button":"▶ MULAI PETUALANGAN","home-kicker":"NUMBER ADVENTURE GAME","home-title":"PETUALANGAN BILANGAN BULAT","exit-button":"↪ KELUAR","menu-guide":"PETUNJUK","menu-goals":"TUJUAN","menu-training":"MATERI","menu-map":"LEVEL","menu-quiz":"KUIS","menu-reflection":"REFLEKSI","menu-leaderboard":"TOP SCORE","menu-developer":"PENGEMBANG","guide-title":"CARA BERMAIN","goals-title":"TUJUAN PEMBELAJARAN","training-title":"MATERI","training-intro":"Bilangan bulat terdiri dari bilangan negatif, nol, dan bilangan positif.","training-direction":"Geser slider. Roket akan tepat berada di atas angka yang kamu pilih.","position-label":"POSISI ROKET:","training-map-button":"🗺️ BUKA PETA LEVEL","map-kicker":"🗺️ NUMBER ADVENTURE","map-title":"PETA PETUALANGAN","quiz-kicker":"ASESMEN AKHIR","quiz-title":"KUIS AKHIR","quiz-result-title":"MISI KUIS SELESAI!","leaderboard-title":"TOP SCORE","leader-game-title":"🏆 TOP SCORE GAME","leader-quiz-title":"📝 TOP SCORE KUIS","reflection-title":"REFLEKSI DIRI","learn-label":"Apa yang kamu pelajari setelah bermain game ini?","difficulty-label":"Bagian mana yang menurutmu sulit?","reflection-save":"💾 SIMPAN REFLEKSI","developer-title":"TENTANG PENGEMBANG","developer-game":"PETUALANGAN BILANGAN BULAT","developer-description":"Game pembelajaran matematika interaktif untuk siswa SMP agar bilangan bulat terasa lebih seru dan mudah dipahami.","developer-name":"Dikembangkan oleh: Zayyan Shabrina, S.Pd."};
+      Object.entries(fallbackText).forEach(([id,text])=>{const el=document.querySelector(`[data-template-id="${id}"]`);if(el&&(!el.textContent.trim()||el.tagName==="INPUT")){if(el.tagName==="INPUT")el.placeholder=text;else el.textContent=text;}});
+    })();
+  </script>
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+      const storage = { get:(k,f)=>{try{const v=localStorage.getItem(k);return v===null?f:JSON.parse(v)}catch{return f}}, set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}} };
+      const KEYS = {name:"integerAdventurePlayer",progress:"integerAdventureProgress",scores:"integerAdventureScores",badges:"integerAdventureBadges",overs:"integerAdventureGameOvers",sound:"integerAdventureSound",gameBoard:"integerAdventureTopGame",quizBoard:"integerAdventureTopQuiz",reflection:"integerAdventureReflection"};
+      const state = {name:storage.get(KEYS.name,""),sound:storage.get(KEYS.sound,true),progress:storage.get(KEYS.progress,{completed:[],unlocked:1}),scores:storage.get(KEYS.scores,{game:0,quiz:0}),badges:storage.get(KEYS.badges,{}),overs:storage.get(KEYS.overs,{}),level:1,session:[],questionIndex:0,hearts:4,score:0,combo:0,bonus:0,seconds:10,timer:null,answered:false,levelStarted:0,perfect:true,totalScore:0,levelScores:{},quizIndex:0,quizScore:0,quizSession:[]};
+      const pos=[["11%","73%"],["30%","41%"],["46%","74%"],["61%","33%"],["77%","64%"],["87%","28%"]];
+      const levels={
+        1:{name:"MENGENAL BILANGAN BULAT",type:"KENALI BILANGAN BULAT",points:2,questions:[{t:"Lift berada di lantai 0. Lift naik 6 lantai. Sekarang lift berada di lantai ...",o:["-6","6","0","-1"],a:"6"},{t:"Seekor ikan berada 8 meter di bawah permukaan laut. Posisi ikan dapat ditulis dengan bilangan ... ",o:["8","-8","0","1"],a:"-8"},{t:"Perhatikan pilihan bilangan berikut, bilangan manakah yang berada di sebelah kanan 0 pada garis bilangan?",o:["-7","-2","0","5"],a:"5"},{t:"Suhu menunjukkan -4°C. Manakah pernyataan yang benar?",o:["-4 adalah bilangan positif","-4 berada di kanan 0","-4 adalah bilangan negatif","-4 lebih besar dari 0"],a:"-4 adalah bilangan negatif"}]},
+        2:{name:"URUTKAN BILANGAN",type:"JELAJAH BILANGAN BULAT",points:4,questions:[{t:"Pada garis bilangan ada angka 2, -3, 5, dan -7. Angka mana yang paling kiri pada garis bilangan?",o:["2","-3","5","-7"],a:"-7"},{t:"Empat suhu dicatat: -2°C, 4°C, -7°C, dan 1°C. Suhu yang paling dingin adalah ..",o:["-2°C","4°C","-7°C","1°C"],a:"-7°C"},{t:"Urutkan bilangan berikut dari yang paling kecil: -1, 2, -4, 5.",o:["-1, 2, -4, 5","5, 2, -1, -4","-4, -1, 2, 5","-1, -4, 2, 5"],a:"-4, -1, 2, 5"},{t:"Kamu berada di angka -4. Angka manakah yang letaknya tepat di sebelah kanan -4?",o:["5","-3","3","4"],a:"-3"}]},
+        3:{name:"BANDINGKAN BILANGAN",type:"SIAPA LEBIH BESAR?",points:4,questions:[{t:"Pada sebuah game, skor Andi adalah -3 dan skor Budi adalah -8. Siapa yang mendapat skor lebih tinggi?",o:["Andi, karena -3 lebih besar dari -8","Budi, karena -8 lebih besar dari -3","Skor sama","Tidak dapat ditentukan"],a:"Andi, karena -3 lebih besar dari -8"},{t:"Pagi ini suhu 12°C. Siang hari suhu menjadi 18°C. Kapan suhu lebih hangat?",o:["Pagi","Siang","Keduanya sama","Tidak dapat ditentukan"],a:"Siang"},{t:"Manakah perbandingan yang benar?",o:["-9 > -2","-6 < -11","-7 > -12","4 < -3"],a:"-7 > -12"},{t:"Diona mengatakan bahwa karena 9 lebih besar dari 5, maka -9 lebih besar dari -5. Apakah pernyataan Diona benar?",o:["Benar, karena -9 lebih besar dari -5","Salah, -9 lebih kecil dari -5","Benar, karena keduanya negatif","Salah, -5 lebih kecil dari -9"],a:"Salah, -9 lebih kecil dari -5"}]},
+        4:{name:"OPERASI BILANGAN BULAT",type:"BERGERAK DI GARIS BILANGAN",points:4,questions:[{t:"Kamu berdiri di angka -4. Lalu kamu maju 9 langkah. Kamu sampai di angka ..",o:["-13","5","13","-5"],a:"5"},{t:"Kamu berada di angka 7. Lalu kamu mundur 12 langkah. Kamu sampai di angka ...",o:["19","5","-5","-19"],a:"-5"},{t:"Sebuah robot berada di angka -6. Robot bergerak 3 langkah ke kiri. Robot berhenti di angka ...",o:["-3","3","-9","9"],a:"-9"},{t:"Suatu pagi suhu 8°C. Siang hari suhu naik 12°C. Suhu siang hari menjadi ...",o:["-20","-4","4","20"],a:"20"}]},
+        5:{name:"BENAR ATAU SALAH",type:"CARI YANG SALAH!",points:4,questions:[{t:"Pagi hari suhu di Kota A adalah -2°C, sedangkan di kota B bersuhu 4°C. Siang hari, suhu Kota A naik 5°C, sedangkan Kota B turun 3°C. Kota mana yang lebih dingin pada siang hari?",o:["Kota A","Kota B","Keduanya sama","Tidak dapat ditentukan"],a:"Kota B"},{t:"Sebuah lift berada di lantai 2. Lift turun ke lantai -3, lalu naik 4 lantai. Pernyataan yang benar adalah ...",o:["Lift berakhir di lantai 1","Lift berakhir di lantai -1","Lift berakhir di lantai 3","Lift berakhir di lantai -5"],a:"Lift berakhir di lantai 1"},{t:"Dika berkata, bergerak dari -4 ke -1 berarti bergerak 3 langkah ke kiri. Apakah Dika benar?",o:["Benar, karena -1 lebih kecil dari -4","Benar, karena keduanya bilangan negatif","Salah, seharusnya 3 langkah ke kanan","Salah, seharusnya 5 langkah ke kanan"],a:"Salah, seharusnya 3 langkah ke kanan"},{t:"Sebuah permainan memberikan perubahan skor berikut: ronde 1 = +6, ronde 2 = -8, ronde 3 = +5. Jika skor awal 0, manakah kesimpulan yang benar?",o:["Skor akhir 3 dan lebih besar dari skor awal","Skor akhir 3 dan lebih kecil dari skor awal","Skor akhir -3 dan lebih kecil dari skor awal","Skor akhir -3 dan lebih besar dari skor awal"],a:"Skor akhir 3 dan lebih besar dari skor awal"}]},
+        6:{name:"FINAL BOSS — PENGUASA BILANGAN",type:"BOSS BATTLE",points:5,boss:true,questions:[{t:"Sebuah kapal selam berada 8 meter di bawah permukaan laut. Kapal kemudian naik 5 meter, lalu turun lagi 7 meter. Pernyataan yang benar tentang posisi kapal sekarang adalah ...",o:["3 meter di bawah permukaan laut","10 meter di bawah permukaan laut","10 meter di atas permukaan laut","20 meter di bawah permukaan laut"],a:"10 meter di bawah permukaan laut"},{t:"Suhu sebuah kota pada pagi hari adalah -5°C. Pada siang hari suhu berubah menjadi 3°C. Pada sore hari suhu kembali turun. Jika suhu sore adalah -2°C, perubahan suhu dari siang ke sore adalah",o:["turun 1°C","turun 5°C","naik 5°C","naik 1°C"],a:"turun 5°C"},{t:"Rina ingin mengetahui hasil dari -7 + 10 - 6. Ia menggunakan dua cara. Cara A: langsung menghitung dari kiri ke kanan. Cara B: bergerak pada garis bilangan. Kesimpulan yang paling tepat adalah ...",o:["Hanya Cara A yang dapat digunakan","Hanya Cara B yang dapat digunakan","Kedua cara dapat digunakan dan menghasilkan hasil yang sama","Kedua cara menghasilkan hasil yang berbeda"],a:"Kedua cara dapat digunakan dan menghasilkan hasil yang sama"},{t:"Tiga siswa memberikan jawaban untuk -8 + 5. Andi menjawab -13. Beni menjawab -3. Citra menjawab 3. Siapa yang benar dan mengapa?",o:["Andi, karena 8 + 5 = 13","Beni, karena bergerak 5 langkah ke kanan dari -8","Citra, karena 5 lebih besar dari 8","Tidak ada yang benar"],a:"Beni, karena bergerak 5 langkah ke kanan dari -8"}]}
+      };
+      const quizQuestions=[{t:"Hasil -8 + 13 adalah ...",o:["-21","5","21","-5"],a:"5"},{t:"-4 ... -9",o:["<","=",">","+"],a:">"},{t:"6 - (-5) = ...",o:["1","-11","11","-1"],a:"11"},{t:"Urutan kecil ke besar: -2, 4, 0, -5 adalah ...",o:["-5, -2, 0, 4","-2, -5, 0, 4","4, 0, -2, -5","-5, 0, -2, 4"],a:"-5, -2, 0, 4"},{t:"-6 + (-3) = ...",o:["-3","9","-9","3"],a:"-9"}];
+      const shuffle=items=>{const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+      let audioContext;
+      let musicTimer=null;
+      let musicStep=0;
+      let musicGain=null;
+      function startMusic(){
+        if(!state.sound)return;
+        try{
+          const AudioCtor=window.AudioContext||window.webkitAudioContext;
+          if(!AudioCtor)return;
+          audioContext??=new AudioCtor();
+          if(audioContext.state==="suspended")audioContext.resume();
+          if(musicTimer)return;
+          musicGain=audioContext.createGain();
+          // Volume musik dibuat lebih jelas, tetapi tetap di bawah batas aman.
+          musicGain.gain.value=.28;
+          musicGain.connect(audioContext.destination);
+          // Melodi pendek dengan ritme 8-bit sederhana.
+          const melody=[261.63,261.63,329.63,392,329.63,293.66,261.63,196];
+          const playNote=()=>{
+            if(!state.sound||!musicGain)return;
+            const now=audioContext.currentTime;
+            const o=audioContext.createOscillator(),g=audioContext.createGain();
+            o.type="square";
+            o.frequency.value=melody[musicStep++%melody.length];
+            g.gain.setValueAtTime(.001,now);
+            g.gain.linearRampToValueAtTime(.13,now+.015);
+            g.gain.exponentialRampToValueAtTime(.001,now+.22);
+            o.connect(g).connect(musicGain);
+            o.start(now);
+            o.stop(now+.24);
+          };
+          const playBeat=()=>{
+            if(!state.sound||!musicGain)return;
+            const now=audioContext.currentTime;
+            const kick=audioContext.createOscillator(),kickGain=audioContext.createGain();
+            kick.type="sine";
+            kick.frequency.setValueAtTime(130,now);
+            kick.frequency.exponentialRampToValueAtTime(55,now+.13);
+            kickGain.gain.setValueAtTime(.001,now);
+            kickGain.gain.linearRampToValueAtTime(.24,now+.01);
+            kickGain.gain.exponentialRampToValueAtTime(.001,now+.16);
+            kick.connect(kickGain).connect(musicGain);
+            kick.start(now);
+            kick.stop(now+.18);
+            if(musicStep%4===2){
+              const clap=audioContext.createOscillator(),clapGain=audioContext.createGain();
+              clap.type="triangle";
+              clap.frequency.value=180;
+              clapGain.gain.setValueAtTime(.001,now);
+              clapGain.gain.linearRampToValueAtTime(.12,now+.01);
+              clapGain.gain.exponentialRampToValueAtTime(.001,now+.1);
+              clap.connect(clapGain).connect(musicGain);
+              clap.start(now);
+              clap.stop(now+.12);
+            }
+          };
+          playNote();
+          playBeat();
+          musicTimer=setInterval(()=>{
+            playNote();
+            playBeat();
+          },260);
+        }catch(error){
+          console.warn("Musik tidak dapat diputar:",error);
+        }
+      }
+      function stopMusic(){
+        if(musicTimer){clearInterval(musicTimer);musicTimer=null}
+        if(musicGain){musicGain.disconnect();musicGain=null}
+      }
+      function updateMusic(){
+        if(state.sound)startMusic();
+        else stopMusic();
+      }
+      function sound(type){if(!state.sound)return;try{audioContext??=new AudioContext();const notes={click:[440],correct:[660,880],wrong:[170],complete:[523,659,784],over:[240,180],badge:[784,988,1175]}[type]||[440];notes.forEach((f,i)=>{const o=audioContext.createOscillator(),g=audioContext.createGain();o.type=(type==="wrong"||type==="over")?"sawtooth":"triangle";o.frequency.value=f;g.gain.setValueAtTime(.07,audioContext.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+i*.09+.2);o.connect(g).connect(audioContext.destination);o.start(audioContext.currentTime+i*.09);o.stop(audioContext.currentTime+i*.09+.22)})}catch{}}
+      function particles(kind="✨"){const layer=$("particles");const symbols=kind==="bad"?["💥","✦","•"]:kind==="combo"?["🔥","✨","✦"]:kind==="win"?["🎉","✨","⭐"]:["✨","✦","⭐"];for(let i=0;i<12;i++){const p=document.createElement("span");p.className="particle";p.textContent=symbols[i%symbols.length];p.style.setProperty("--x",(Math.random()*260-130)+"px");p.style.setProperty("--y",(Math.random()*190-95)+"px");layer.appendChild(p);setTimeout(()=>p.remove(),800)}}
+      function show(id){clearInterval(state.timer);document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(id).classList.add("active");closeOverlay();if(id==="home")updateHome();if(id==="map")renderMap();if(id==="leaderboard"){renderBoards();renderBadges()}if(id==="quiz")setupQuiz();sound("click")}
+      function updateSound(){document.querySelectorAll('[id^="sound-toggle"]').forEach(b=>b.textContent=state.sound?"🔊 SOUND ON":"🔇 SOUND OFF")}
+      function updateHome(){$("home-name").textContent=state.name||"Explorer";$("home-score").textContent=state.scores.game;$("home-quiz").textContent=state.scores.quiz;$("home-progress").textContent=state.progress.completed.length;updateSound()}
+      function renderMap(){document.querySelectorAll(".level-node").forEach((b,i)=>{const n=i+1,open=n<=state.progress.unlocked,done=state.progress.completed.includes(n);b.disabled=!open;b.classList.toggle("locked",!open);b.querySelector("small").textContent=done?"✓ SELESAI":open?"🔓 TERBUKA":"🔒 TERKUNCI"});const location=Math.min(state.progress.completed.length,5);$("rocket-map").style.left=pos[location][0];$("rocket-map").style.top=pos[location][1]}
+      function updateHUD(){const d=levels[state.level].boss?7:10;$("play-score").textContent=state.score;$("heart-display").textContent=Array.from({length:3},(_,i)=>i<state.hearts?"❤️":"🖤").join(" ");$("combo-display").textContent="x"+state.combo;$("question-count").textContent=(state.questionIndex+1)+" / "+state.session.length;$("bonus-display").textContent=state.bonus;$("time-value").textContent=state.seconds;$("timer-fill").style.width=(state.seconds/d*100)+"%";$("timer-fill").classList.toggle("urgent",state.seconds<=3)}
+      function startLevel(n){if(n===1){state.hearts=4;state.totalScore=0;state.levelScores={}}state.level=n;state.session=shuffle(levels[n].questions);state.questionIndex=0;state.score=0;state.combo=0;state.bonus=0;state.perfect=true;state.levelStarted=Date.now();$("level-kicker").textContent=n===6?"FINAL BOSS":"LEVEL 0"+n;$("level-name").textContent=levels[n].name;$("boss-mark").classList.toggle("hidden",!levels[n].boss);show("play");renderQuestion()}
+      function renderQuestion(){clearInterval(state.timer);state.answered=false;const level=levels[state.level],q=state.session[state.questionIndex];$("question-type").textContent=level.type;$("question-text").textContent=q.t;$("feedback").textContent="";$("feedback").className="feedback mt-3";const area=$("answer-area");area.innerHTML="";const grid=document.createElement("div");grid.className="answer-grid";shuffle(q.o).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="answer-btn";b.textContent=o;b.addEventListener("click",()=>resolveAnswer(o===q.a,b));grid.appendChild(b)});area.appendChild(grid);state.seconds=level.boss?7:10;updateHUD();state.timer=setInterval(()=>{state.seconds--;updateHUD();if(state.seconds<=0){clearInterval(state.timer);resolveAnswer(false,null,true)}},1000)}
+      function resolveAnswer(correct,button,timeout=false){if(state.answered)return;state.answered=true;clearInterval(state.timer);document.querySelectorAll(".answer-btn").forEach(b=>b.disabled=true);if(correct){state.combo++;const extra=state.combo>=2?state.combo-1:0;state.score+=levels[state.level].points+extra;state.bonus+=extra;if(button)button.classList.add("good");$("feedback").textContent=state.combo>=2?"🔥 COMBO x"+state.combo+"! BONUS +"+extra:"✓ BENAR! +"+levels[state.level].points+" POINTS";$("feedback").className="feedback mt-3 correct combo-pop";particles(state.combo>=2?"combo":"good");sound("correct")}else{state.hearts--;state.perfect=false;const hadCombo=state.combo>0;state.combo=0;if(button)button.classList.add("bad");$("game-area").classList.remove("shake");void $("game-area").offsetWidth;$("game-area").classList.add("shake");$("heart-display").classList.add("heart-hit");setTimeout(()=>$("heart-display").classList.remove("heart-hit"),520);$("feedback").textContent=(timeout?"⏰ WAKTU HABIS!":"❌ SALAH!")+" ❤️ -1 NYAWA"+(hadCombo?" • COMBO BREAK!":"");$("feedback").className="feedback mt-3 wrong";particles("bad");sound("wrong")}updateHUD();setTimeout(()=>{if(state.hearts<=0)gameOver();else if(state.questionIndex>=state.session.length-1)completeLevel();else{state.questionIndex++;renderQuestion()}},850)}
+      function gameOver(){state.overs[state.level]=(state.overs[state.level]||0)+1;storage.set(KEYS.overs,state.overs);sound("over");openOverlay("💥","GAME OVER!","4 nyawa bersama telah habis. Petualangan dimulai lagi dari Level 1 agar kamu bisa berlatih sampai paham!","SKOR LEVEL: "+state.score,[["🔄 KEMBALI KE LEVEL 1",()=>startLevel(1),"#7657e8"],["🗺️ KEMBALI KE PETA",()=>show("map"),"#ff9b45"]])}
+      function unlock(key){if(state.badges[key])return false;state.badges[key]=true;storage.set(KEYS.badges,state.badges);return true}
+      function completeLevel(){const done=state.progress.completed;if(!done.includes(state.level)){done.push(state.level);done.sort((a,b)=>a-b);state.progress.unlocked=Math.min(6,Math.max(state.progress.unlocked,state.level+1));storage.set(KEYS.progress,state.progress)}state.levelScores[state.level]=Math.max(state.levelScores[state.level]||0,state.score);state.totalScore=Object.values(state.levelScores).reduce((sum,value)=>sum+value,0);state.scores.game=Math.max(state.scores.game,state.totalScore);storage.set(KEYS.scores,state.scores);saveBoard(KEYS.gameBoard,state.scores.game);sound("complete");particles("win");const gained=[];const elapsed=(Date.now()-state.levelStarted)/1000;if(elapsed<30&&unlock("kilat"))gained.push(["⚡","KILAT","Kamu menyelesaikan level dengan sangat cepat!"]);if(state.perfect&&unlock("sempurna"))gained.push(["⭐","SEMPURNA","Tidak ada satu pun kesalahan!"]);if((state.overs[state.level]||0)>=2&&unlock("pantang"))gained.push(["💪","PANTANG MENYERAH","Kamu terus mencoba sampai berhasil!"]);if(state.level===6&&state.progress.completed.length===6&&unlock("explorer"))gained.push(["🗺️","MATH EXPLORER","Seluruh petualangan berhasil ditaklukkan!"]);const final=state.level===6;const after=()=>{if(gained.length)showBadge(gained,0,()=>show(final?"home":"map"));else openComplete(final)};after()}
+      function openComplete(final){openOverlay(final?"👑":"🏅",final?"FINAL BOSS DIKALAHKAN!":"LEVEL COMPLETE!",final?"Seluruh misi selesai. Kuis Akhir sekarang terbuka!":"Level berhasil ditaklukkan!","SKOR LEVEL: "+state.score+"\nBONUS COMBO: "+state.bonus,[[final?"🏆 KE HOME":"🗺️ KEMBALI KE PETA",()=>show(final?"home":"map"),final?"#ef5fa6":"#55cdb0"]])}
+      function showBadge(items,index,finish){const b=items[index];sound("badge");particles("win");openOverlay(b[0],"🎉 ACHIEVEMENT UNLOCKED!",""+b[1],b[2],[["LANJUTKAN",()=>{if(index<items.length-1)showBadge(items,index+1,finish);else finish()},"#7657e8"]]);$("overlay-icon").classList.add("badge-glow");setTimeout(()=>$("overlay-icon").classList.remove("badge-glow"),1100)}
+      function openOverlay(icon,title,msg,stats,actions){$("overlay-icon").textContent=icon;$("overlay-title").textContent=title;$("overlay-message").textContent=msg;$("overlay-stats").textContent=stats;$("overlay-actions").innerHTML="";actions.forEach(([label,fn,color])=>{const b=document.createElement("button");b.type="button";b.className="button-game px-5 py-3 text-white";b.style.background=color;b.textContent=label;b.addEventListener("click",fn);$("overlay-actions").appendChild(b)});$("overlay").classList.add("show")}
+      function closeOverlay(){$("overlay").classList.remove("show")}
+      function saveBoard(key,score){const b=storage.get(key,[]),old=b.find(r=>r.name===state.name);if(old)old.score=Math.max(old.score,score);else b.push({name:state.name||"Explorer",score});b.sort((a,b)=>b.score-a.score);storage.set(key,b.slice(0,10))}
+      function renderBoards(){const medals=["🥇","🥈","🥉"];const render=(id,rows)=>{$(id).innerHTML="";(rows.length?rows:[{name:"Belum ada explorer",score:0}]).slice(0,5).forEach((r,i)=>{const li=document.createElement("li");li.className="board-row";li.textContent=(medals[i]||"⭐")+" "+r.name+" — "+r.score;$(id).appendChild(li)})};render("game-board",storage.get(KEYS.gameBoard,[]));render("quiz-board",storage.get(KEYS.quizBoard,[]))}
+      function renderBadges(){const items={kilat:["⚡","KILAT","Selesaikan level dengan sangat cepat."],sempurna:["⭐","SEMPURNA","Tidak ada satu pun kesalahan."],pantang:["💪","PANTANG MENYERAH","Terus mencoba sampai berhasil."],explorer:["🗺️","MATH EXPLORER","Seluruh petualangan ditaklukkan."]};Object.entries(items).forEach(([key,v])=>{const el=$("badge-"+key),yes=!!state.badges[key];el.classList.toggle("unlocked",yes);el.innerHTML=yes?'<div class="badge-icon">'+v[0]+'</div><div class="badge-name">'+v[1]+'</div><p>'+v[2]+'</p>':'<div class="badge-icon">🔒</div><div class="badge-name">???</div><p>RAHASIA</p>'})}
+      function setupQuiz(){const available=state.progress.completed.length===6;$("quiz-locked").classList.toggle("hidden",available);$("quiz-play").classList.toggle("hidden",!available);$("quiz-result").classList.add("hidden");if(available){state.quizIndex=0;state.quizScore=0;state.quizSession=shuffle(quizQuestions);renderQuiz()}}
+      function renderQuiz(){const q=state.quizSession[state.quizIndex];$("quiz-number").textContent="SOAL "+(state.quizIndex+1)+" / "+state.quizSession.length;$("quiz-score-live").textContent=state.quizScore;$("quiz-question").textContent=q.t;$("quiz-answers").innerHTML="";shuffle(q.o).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="answer-btn";b.textContent=o;b.addEventListener("click",()=>{document.querySelectorAll("#quiz-answers button").forEach(x=>x.disabled=true);if(o===q.a){state.quizScore+=20;b.classList.add("good");particles("good");sound("correct")}else{b.classList.add("bad");particles("bad");sound("wrong")}setTimeout(()=>{if(state.quizIndex===state.quizSession.length-1){state.scores.quiz=Math.max(state.scores.quiz,state.quizScore);storage.set(KEYS.scores,state.scores);saveBoard(KEYS.quizBoard,state.scores.quiz);$("quiz-play").classList.add("hidden");$("quiz-result").classList.remove("hidden");$("quiz-final-score").textContent=state.quizScore}else{state.quizIndex++;renderQuiz()}},650)});$("quiz-answers").appendChild(b)})}
+      const linePos=(v,min,max,a,b)=>a+(v-min)/(max-min)*(b-a);
+      function trainingLine(){const line=$("training-line");for(let n=-10;n<=10;n++){const p=linePos(n,-10,10,3,97),tick=document.createElement("span"),label=document.createElement("span");tick.className="number-tick";tick.style.left=p+"%";label.className="number-label";label.style.left=p+"%";label.textContent=n;line.append(tick,label)}}
+      function moveRocket(v){$("rocket-training").style.left=linePos(v,-10,10,3,97)+"%";$("position-value").textContent=v}
+      $("start-form").addEventListener("submit",e=>{e.preventDefault();const n=$("player-name").value.trim();if(!n){$("name-error").textContent="Nama pemain wajib diisi!";return}if(state.name&&n!==state.name){state.progress={completed:[],unlocked:1};state.scores={game:0,quiz:0};state.badges={};state.overs={};state.level=1;state.session=[];state.questionIndex=0;state.hearts=4;state.score=0;state.combo=0;state.bonus=0;state.seconds=10;state.totalScore=0;state.levelScores={};state.quizIndex=0;state.quizScore=0;state.quizSession=[];storage.set(KEYS.progress,state.progress);storage.set(KEYS.scores,state.scores);storage.set(KEYS.badges,state.badges);storage.set(KEYS.overs,state.overs);storage.set(KEYS.reflection,{learning:"",difficulty:""});$("reflection-learning").value="";$("reflection-difficulty").value=""}state.name=n;storage.set(KEYS.name,n);$("name-error").textContent="";try{audioContext??=new AudioContext()}catch{}startMusic();show("home")});
+      document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)));document.querySelectorAll(".back-home").forEach(b=>b.addEventListener("click",()=>show("home")));document.querySelectorAll('[id^="sound-toggle"]').forEach(b=>b.addEventListener("click",()=>{state.sound=!state.sound;storage.set(KEYS.sound,state.sound);updateSound();updateMusic();sound("click")}));$("exit-app").addEventListener("click",()=>{$("player-name").value=state.name;show("start")});$("exit-level").addEventListener("click",()=>show("map"));document.querySelectorAll(".level-node").forEach(b=>b.addEventListener("click",()=>startLevel(Number(b.dataset.level))));$("number-slider").addEventListener("input",e=>moveRocket(Number(e.target.value)));
+      $("scores-tab").addEventListener("click",()=>{$("scores-tab").classList.add("active");$("badges-tab").classList.remove("active");$("scores-panel").classList.remove("hidden");$("badges-panel").classList.add("hidden")});$("badges-tab").addEventListener("click",()=>{$("badges-tab").classList.add("active");$("scores-tab").classList.remove("active");$("badges-panel").classList.remove("hidden");$("scores-panel").classList.add("hidden");renderBadges()});
+      const reflection=storage.get(KEYS.reflection,{learning:"",difficulty:""});$("reflection-learning").value=reflection.learning;$("reflection-difficulty").value=reflection.difficulty;$("reflection-form").addEventListener("submit",e=>{e.preventDefault();storage.set(KEYS.reflection,{learning:$("reflection-learning").value,difficulty:$("reflection-difficulty").value});$("reflection-status").textContent="✓ Tersimpan!"});
+      trainingLine();moveRocket(0);$("player-name").value=state.name;updateSound();
+      document.addEventListener("pointerdown",()=>{if(state.sound)startMusic()},{once:true});
+      if(window.lucide)lucide.createIcons();
+    })();
+  </script>
+ </body>
+</html>
