@@ -89,14 +89,14 @@
       <h2 data-template-id="guide-title" class="canva-text game-title text-[#334d9c]"></h2><button class="button-game nav-button back-home" type="button">⌂ HOME</button>
      </div>
      <ol class="info-list list-decimal list-inside mt-5">
-      <li>Games memiliki 6 level permainan dengan empat hati.</li>
-      <li>Level 1–5 berdurasi 10 detik per soal.</li>
-      <li>Final Boss berdurasi 7 detik per soal.</li>
-      <li>Jawaban salah mengurangi satu hati.</li>
-      <li>Jawab benar beruntun mendapatkan bonus combo.</li>
-      <li>Game Over harus diulangi dari level 1.</li>
-      <li>Soal dan pilihan jawaban selalu diacak.</li>
-      <li>Buka achievement rahasia dengan performa terbaik.</li>
+  <li>🎯 <strong>Tujuan</strong> — Ketahui apa yang akan kamu capai.</li>
+  <li>📚 <strong>Materi</strong> — Pelajari materi sebagai bekal bermain.</li>
+  <li>🎮 <strong>Games</strong> — Taklukkan setiap level dan kumpulkan poin.</li>
+  <li>📝 <strong>Kuis</strong> — Uji pemahamanmu setelah bermain.</li>
+  <li>💭 <strong>Refleksi</strong> — Lihat kembali perjalanan belajarmu.</li>
+  <li>🏆 <strong>Top Score</strong> — Cek skor terbaikmu.</li>
+  <li>👨‍💻 <strong>Pengembang</strong> — Kenali pembuat game ini.</li>
+  <p><strong>⭐ Jangan lupa cek semua menu agar tidak ada bagian yang terlewat!</strong></p>
      </ol>
     </div>
    </section>
@@ -336,7 +336,7 @@
   <script>
     // Fallback teks lokal agar tetap tampil saat dijalankan di luar Canva.
     (() => {
-      const fallbackText = {"start-welcome":"SELAMAT DATANG, MATH EXPLORER!","start-title":"PETUALANGAN BILANGAN BULAT","start-tagline":"Taklukkan Angka, Raih Skor, Jadilah Math Explorer!","name-label":"NAMA PEMAIN","name-input":"Ketik nama kamu...","start-button":"▶ MULAI PETUALANGAN","home-kicker":"NUMBER ADVENTURE GAME","home-title":"PETUALANGAN BILANGAN BULAT","exit-button":"↪ KELUAR","menu-guide":"PETUNJUK","menu-goals":"TUJUAN","menu-training":"MATERI","menu-map":"LEVEL","menu-quiz":"KUIS","menu-reflection":"REFLEKSI","menu-leaderboard":"TOP SCORE","menu-developer":"PENGEMBANG","guide-title":"CARA BERMAIN","goals-title":"TUJUAN PEMBELAJARAN","training-title":"MATERI","training-intro":"Bilangan bulat terdiri dari bilangan negatif, nol, dan bilangan positif.","training-direction":"Geser slider. Roket akan tepat berada di atas angka yang kamu pilih.","position-label":"POSISI ROKET:","training-map-button":"🗺️ BUKA PETA LEVEL","map-kicker":"🗺️ NUMBER ADVENTURE","map-title":"PETA PETUALANGAN","quiz-kicker":"ASESMEN AKHIR","quiz-title":"KUIS AKHIR","quiz-result-title":"MISI KUIS SELESAI!","leaderboard-title":"TOP SCORE","leader-game-title":"🏆 TOP SCORE GAME","leader-quiz-title":"📝 TOP SCORE KUIS","reflection-title":"REFLEKSI DIRI","learn-label":"Apa yang kamu pelajari setelah bermain game ini?","difficulty-label":"Bagian mana yang menurutmu sulit?","reflection-save":"💾 SIMPAN REFLEKSI","developer-title":"TENTANG PENGEMBANG","developer-game":"PETUALANGAN BILANGAN BULAT","developer-description":"Game pembelajaran matematika interaktif untuk siswa SMP agar bilangan bulat terasa lebih seru dan mudah dipahami.","developer-name":"Dikembangkan oleh: Zayyan Shabrina, S.Pd."};
+      const fallbackText = {"start-welcome":"SELAMAT DATANG, MATH EXPLORER!","start-title":"PETUALANGAN BILANGAN BULAT","start-tagline":"Taklukkan Angka, Raih Skor, Jadilah Math Explorer!","name-label":"NAMA PEMAIN","name-input":"Ketik nama kamu...","start-button":"▶ MULAI PETUALANGAN","home-kicker":"NUMBER ADVENTURE GAME","home-title":"PETUALANGAN BILANGAN BULAT","exit-button":"↪ KELUAR","menu-guide":"PETUNJUK","menu-goals":"TUJUAN","menu-training":"MATERI","menu-map":"LEVEL","menu-quiz":"KUIS","menu-reflection":"REFLEKSI","menu-leaderboard":"TOP SCORE","menu-developer":"PENGEMBANG","guide-title":"PETUNJUK PENGGUNAAN","goals-title":"TUJUAN PEMBELAJARAN","training-title":"MATERI","training-intro":"Bilangan bulat terdiri dari bilangan negatif, nol, dan bilangan positif.","training-direction":"Geser slider. Roket akan tepat berada di atas angka yang kamu pilih.","position-label":"POSISI ROKET:","training-map-button":"🗺️ BUKA PETA LEVEL","map-kicker":"🗺️ NUMBER ADVENTURE","map-title":"PETA PETUALANGAN","quiz-kicker":"ASESMEN AKHIR","quiz-title":"KUIS AKHIR","quiz-result-title":"MISI KUIS SELESAI!","leaderboard-title":"TOP SCORE","leader-game-title":"🏆 TOP SCORE GAME","leader-quiz-title":"📝 TOP SCORE KUIS","reflection-title":"REFLEKSI DIRI","learn-label":"Apa yang kamu pelajari setelah bermain game ini?","difficulty-label":"Bagian mana yang menurutmu sulit?","reflection-save":"💾 SIMPAN REFLEKSI","developer-title":"TENTANG PENGEMBANG","developer-game":"PETUALANGAN BILANGAN BULAT","developer-description":"Game pembelajaran matematika interaktif untuk siswa SMP agar bilangan bulat terasa lebih seru dan mudah dipahami.","developer-name":"Dikembangkan oleh: Zayyan Shabrina, S.Pd."};
       Object.entries(fallbackText).forEach(([id,text])=>{const el=document.querySelector(`[data-template-id="${id}"]`);if(el&&(!el.textContent.trim()||el.tagName==="INPUT")){if(el.tagName==="INPUT")el.placeholder=text;else el.textContent=text;}});
     })();
   </script>
